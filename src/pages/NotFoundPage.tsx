@@ -8,7 +8,7 @@ export function NotFoundPage(){
   <PageContainer>
   <div style={{ textAlign: 'center', marginTop: '4rem' }}>
     <Typography variant="h3">404</Typography>
-    <Typography color="text.secondary" gutterBottom>Page not found</Typography>
+    <Typography sx={{ color: 'text.secondary' }} gutterBottom>Page not found</Typography>
     <Button variant="contained" onClick={()=>navigate('/dashboard')}>Back to dashboard</Button>
   </div>
   </PageContainer>
