@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { PageContainer } from "../components/PageContainer";
 import { WalletBalance } from "../features/wallet/WalletBalance";
 import { TransactionList } from "../features/transactions/TransactionList";
@@ -9,15 +9,15 @@ import { SendMoneyCard } from "../features/wallet/SendMoneyCard";
 export function DashboardPage(){
     return (
         <PageContainer>
-            <Grid container spacing={2}>
-                <Grid size={{ xs: 12, sm: 4 }}>
-                    <WalletBalance />
-                </Grid>
-                {/* StatsCards lays out its own 2 cards (sm=6 each) inside this slot → 3 equal cards across */}
-                <Grid size={{ xs: 12, sm: 8 }}>
-                    <StatsCards />
-                </Grid>
-            </Grid>
+            <Typography variant="h4" component="h1" sx={{ fontWeight: 500, mb: 3 }}>
+                Dashboard
+            </Typography>
+            {/* Balance stands alone, full width, above the stats row */}
+            <WalletBalance />
+            {/* StatsCards lays out its own 2-card row (sm=6 each) */}
+            <Box sx={{ mt: 2 }}>
+                <StatsCards />
+            </Box>
             <Grid container spacing={2} sx={{ mt: 2 }}>
                 {/* md=5 transfer form column — recipient-only preview until Unit 4b */}
                 <Grid size={{ xs: 12, md: 5 }}>

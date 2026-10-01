@@ -18,6 +18,7 @@ describe('DashboardPage', () => {
 
     renderWithProviders(<DashboardPage />)
 
+    expect(screen.getByRole('heading', { name: 'Dashboard', level: 1 })).toBeInTheDocument()
     expect(screen.getByText('Balance')).toBeInTheDocument()
     expect(await screen.findByText('Transactions')).toBeInTheDocument()
     expect(screen.getByText('This Month')).toBeInTheDocument()
