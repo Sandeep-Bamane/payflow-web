@@ -5,6 +5,7 @@ import { AmountText } from '../../components/AmountText'
 import { StatusChip } from '../../components/StatusChip'
 import { EmptyState } from '../../components/EmptyState'
 import { formatRelativeDate } from '../../utils/formatDate'
+import { TransactionInsight } from './TransactionInsight'
 
 const LIMIT = 5
 
@@ -23,7 +24,8 @@ export function TransactionList() {
         // Rendered in API order (newest first); never re-sorted client-side
         <List disablePadding>
           {transactions.data.transactions.map((tx) => (
-            <ListItem key={tx.id} disableGutters divider sx={{ py: 1.5 }}>
+            // flexWrap lets TransactionInsight's panel wrap onto its own line below the row
+            <ListItem key={tx.id} disableGutters divider sx={{ py: 1.5, flexWrap: 'wrap' }}>
               <Box sx={{ flexGrow: 1, minWidth: 0 }}>
                 <Typography variant="body1" noWrap>
                   {tx.counterpartyEmail ?? (tx.description || 'Unknown')}
@@ -36,6 +38,7 @@ export function TransactionList() {
                 <AmountText amount={tx.amount} currency={currency} type={tx.type} />
                 <StatusChip status={tx.status} />
               </Stack>
+              <TransactionInsight transactionId={tx.id} />
             </ListItem>
           ))}
         </List>

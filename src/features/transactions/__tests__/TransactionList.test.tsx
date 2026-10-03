@@ -94,6 +94,19 @@ describe('TransactionList', () => {
     expect(skeletons(container)).toHaveLength(0)
   })
 
+  it('gives every row a "View insight" button without fetching any insight on render', async () => {
+    routeGet(get, {
+      [WALLET_URL]: () => Promise.resolve(usd),
+      [TX_URL]: page([tx({ id: 't1' }), tx({ id: 't2', counterpartyEmail: 'bob@test.com' })]),
+    })
+
+    renderWithProviders(<TransactionList />)
+
+    const rows = await screen.findAllByRole('listitem')
+    for (const row of rows) expect(within(row).getByRole('button', { name: 'View insight' })).toBeInTheDocument()
+    expect(get.mock.calls.map(([url]) => url).sort()).toEqual([TX_URL, WALLET_URL].sort())
+  })
+
   it('keeps the order the API returned, without re-sorting by date', async () => {
     routeGet(get, {
       [WALLET_URL]: () => Promise.resolve(usd),
