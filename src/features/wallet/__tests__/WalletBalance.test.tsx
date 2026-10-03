@@ -5,6 +5,7 @@ import { WalletBalance } from '../WalletBalance'
 import { renderWithProviders } from '../../../test/renderWithProviders'
 import { formatMoney } from '../../../utils/formatMoney'
 import type { Wallet } from '../../../types/wallet'
+import { theme } from '../../../theme'
 
 vi.mock('../../../api/client', () => ({ apiClient: { get: vi.fn() } }))
 const get = apiClient.get as unknown as Mock<(url: string) => Promise<{ data: Wallet }>>
@@ -41,6 +42,7 @@ describe('WalletBalance', () => {
     expect(value.tagName).toBe('H5')
     expect(getComputedStyle(value).fontWeight).toBe('500')
     expect(screen.getByText('Balance')).toHaveClass('MuiTypography-body2')
+    expect(getComputedStyle(screen.getByText('Balance')).color).toBe(theme.palette.text.secondary)
   })
 
   it('shows "Failed to load" in the error color when the request fails', async () => {

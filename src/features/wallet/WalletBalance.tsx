@@ -1,6 +1,7 @@
-import { Card, CardContent, Skeleton, Typography } from '@mui/material'
+import { Skeleton, Typography } from '@mui/material'
 import { useWallet } from '../../hooks/useWallet'
 import { formatMoney } from '../../utils/formatMoney'
+import { StatCard } from '../../components/StatCard'
 
 export function WalletBalance() {
   const { data, isPending } = useWallet()
@@ -24,14 +25,5 @@ export function WalletBalance() {
     )
   }
 
-  return (
-    <Card>
-      <CardContent sx={{ p: 3 }}>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
-          Balance
-        </Typography>
-        {value}
-      </CardContent>
-    </Card>
-  )
+  return <StatCard label="Balance">{value}</StatCard>
 }

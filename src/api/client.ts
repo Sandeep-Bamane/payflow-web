@@ -7,10 +7,16 @@ export const apiClient = axios.create({
     baseURL:VITE_APP_BASE_URL,
 });
 
+// The one place the access token is read — apiClient's Authorization header and the socket handshake both use it
+export function getAccessToken(): string | undefined {
+    return Cookies.get("ACCEESS_TOKEN");
+}
+
 export function clearSessionCookies(){
     Cookies.remove("ACCEESS_TOKEN");
     Cookies.remove("REFRESH_TOKEN");
     Cookies.remove("USER_ID");
+    Cookies.remove("USER_EMAIL");
 }
 
 // AuthProvider registers this so a failed refresh logs the user out of the UI too
@@ -33,7 +39,7 @@ async function refreshAccessToken(): Promise<string> {
 }
 
 apiClient.interceptors.request.use((config)=>{
-    const token = Cookies.get("ACCEESS_TOKEN");
+    const token = getAccessToken();
     if(token){
         config.headers.Authorization = `Bearer ${token}`;
     }
